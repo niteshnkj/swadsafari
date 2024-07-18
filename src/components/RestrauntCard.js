@@ -10,7 +10,7 @@ const RestrauntCard = ({ resData }) => {
     avgRatingString,
     costForTwo,
     sla: { deliveryTime },
-  } = resData;
+  } = resData.info;
 
   return (
     <div className="res-card" style={{ backgroundColor: "#f0f0f0" }}>
