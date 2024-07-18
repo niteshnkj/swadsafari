@@ -6,6 +6,7 @@ const Body = () => {
   const [filteredRes, setFilteredRes] = useState([]);
   const [searchText, setSearchtext] = useState("");
   // console.log(searchText);
+  // https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=28.723343&lng=77.2213086&restaurantId=624078&submitAction=ENTER
 
   // console.log(restaurants);
   useEffect(() => {

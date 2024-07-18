@@ -4,9 +4,8 @@
   "description": "This is a food delivery application .",
   "scripts": {
     "start": "parcel index.html",
-    "build":"parcel build index.html",
+    "build": "parcel build index.html",
     "test": "jest"
-    
   },
   "author": "Nitesh Kumar Jha",
   "license": "ISC",
@@ -16,9 +15,10 @@
   },
   "dependencies": {
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.25.1"
   },
-  "browserslist":[
+  "browserslist": [
     "last 2 versions"
   ]
 }
