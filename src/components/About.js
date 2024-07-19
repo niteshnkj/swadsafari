@@ -1,4 +1,14 @@
+import UserClass from "./UserClass";
+
 const About = () => {
-  return <div>This is about us page</div>;
+  return (
+    <div>
+      <UserClass
+        name={"Nitesh Kumar Jha"}
+        email={"niteshkrjha.nkj@gmail.com"}
+        phone={"+919163886869"}
+      />
+    </div>
+  );
 };
 export default About;
