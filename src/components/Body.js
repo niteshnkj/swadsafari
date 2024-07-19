@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import RestrauntCard from "./RestrauntCard";
 import { useEffect, useState } from "react";
 
@@ -5,10 +6,6 @@ const Body = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [filteredRes, setFilteredRes] = useState([]);
   const [searchText, setSearchtext] = useState("");
-  // console.log(searchText);
-  // https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=28.723343&lng=77.2213086&restaurantId=624078&submitAction=ENTER
-
-  console.log(restaurants);
   useEffect(() => {
     fetchData();
   }, []);
@@ -28,7 +25,7 @@ const Body = () => {
           ?.restaurants
       );
     } catch (error) {
-      console.log("Api not fetched");
+      console.log("error while fetching api");
     }
   };
 
@@ -71,7 +68,12 @@ const Body = () => {
       <div className="res-container">
         {filteredRes.map((restaurant) => {
           return (
-            <RestrauntCard resData={restaurant} key={restaurant.info.id} />
+            <Link
+              key={restaurant.info.id}
+              to={"/restaurant/" + restaurant.info.id}
+            >
+              <RestrauntCard resData={restaurant} />
+            </Link>
           );
         })}
       </div>
