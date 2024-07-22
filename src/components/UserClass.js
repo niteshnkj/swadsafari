@@ -3,36 +3,83 @@ import React from "react";
 class UserClass extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      count: 1,
-      count2: 2,
+      userInfo: {
+        name: "Dummy",
+        location: "Default",
+      },
     };
+    console.log(this.props.name + "Child Constructor");
+  }
+
+  async componentDidMount() {
+    //console.log(this.props.name + "Child Component Did Mount");
+    // Api call
+
+    const data = await fetch("https://api.github.com/users/niteshnkj");
+    const json = await data.json();
+
+    this.setState({
+      userInfo: json,
+    });
+
+    console.log(json);
+  }
+
+  componentDidUpdate() {
+    console.log("Component Did Update");
+  }
+
+  componentWillUnmount() {
+    console.log("Component Will Unmount");
   }
 
   render() {
-    const { name, email, phone } = this.props;
-    const { count, count2 } = this.state;
+    console.log(this.props.name + "Child Render");
+
+    const { name, location, avatar_url } = this.state.userInfo;
     return (
-      <div>
-        <p>count1: {count}</p>
-        <p>count2: {count2}</p>
-        <button
-          onClick={() => {
-            this.setState({
-              // NEVER MODIFY YOUR STATE VARIABLES DIRECTLY
-              count: this.state.count + 1,
-              count2: this.state.count2 + 2,
-            });
-          }}
-        >
-          Increase Count
-        </button>
-        <h1>{name}</h1>
-        <h3>{email} </h3>
-        <h4>{phone}</h4>
+      <div className="user-card">
+        <img src={avatar_url} />
+        <h2>Name: {name}</h2>
+        <h3>Location: {location}</h3>
+        <h4>Contact: @nitesjnkj</h4>
       </div>
     );
   }
 }
 
 export default UserClass;
+
+
+
+
+/****
+ *
+ * --- MOUNTING ----
+ *
+ * Constructor (dummy)
+ * Render (dummy)
+ *      <HTML Dummy >
+ * Component Did MOunt
+ *      <API Call>
+ *      <this.setState> -> State variable is updated
+ *
+ * ---- UPDATE
+ *
+ *      render(APi data)
+ *      <HTML (new API data>)
+ *      ccomponentDid Update
+ *
+ *
+ *
+ *  Todo always go through this before interview
+// ! super(props) is used because we we are inheriting our class component from React. 
+// !Component Parent class so to inherit it property we use super keyword .
+// ! also props are passed from parent class so to inherit its properties we use super(props)
+// ? why do we use async before cdm and not before useEffect?
+// ! because useEffect returns undefined or a cleanup function but incase of cdm it dont behaves the same
+// ! also cmp mounts first if not written async it will show inconsistency 
+ *
+ */

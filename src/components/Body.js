@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import RestrauntCard from "./RestrauntCard";
 import { useEffect, useState } from "react";
+import useOnlineStaus from "../utils/useOnlineStatus";
 
 const Body = () => {
   const [restaurants, setRestaurants] = useState([]);
@@ -35,6 +36,15 @@ const Body = () => {
     });
     setRestaurants(filteredRestaurants);
   };
+
+  const onlineStatus = useOnlineStaus();
+
+  if (onlineStatus === false)
+    return (
+      <h1>
+        Looks like you're offline!! Please check your internet connection;
+      </h1>
+    );
 
   return restaurants.length === 0 ? (
     <p>Loading.....</p>
