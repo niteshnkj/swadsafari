@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStaus from "../utils/useOnlineStatus";
+import Grocery from "./Grocery";
 
 const Header = () => {
   const [user, setUser] = useState("LogIn");
@@ -23,6 +24,9 @@ const Header = () => {
           </li>
           <li>
             <Link to={"/contactus"}> Contact Us </Link>
+          </li>
+          <li>
+            <Link to={"/grocery"}>Grocery</Link>
           </li>
           <li>Cart</li>
           <button
