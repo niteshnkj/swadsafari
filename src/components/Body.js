@@ -21,9 +21,9 @@ const Body = () => {
       setRestaurants(
         json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
       );
-      console.log(
-        json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
-      );
+      // console.log(
+      //   json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
+      // );
       setFilteredRes(
         json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
       );
@@ -36,7 +36,7 @@ const Body = () => {
     const filteredRestaurants = restaurants.filter((restaurant) => {
       return restaurant?.info?.avgRating > 4;
     });
-    setRestaurants(filteredRestaurants);
+   setFilteredRes(filteredRestaurants);
   };
 
   const onlineStatus = useOnlineStaus();
