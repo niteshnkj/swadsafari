@@ -48,18 +48,19 @@ const Body = () => {
     <p>Loading.....</p>
   ) : (
     <div className="body">
-      <div className="filter flex">
-        <div className="search m-4 p-4">
+      <div className=" flex">
+        <div className=" m-4 p-4">
           <input
             type="text"
+            className="border border-solid border-black p-4"
             placeholder="Enter a restraunt name here"
             onChange={(e) => setSearchtext(e.target.value)}
             value={searchText}
           />
 
           <button
+            className="px-4 py-2 bg-green-100 m-4 rounded-lg"
             onClick={() => {
-              className = "px-4 py-2 bg-green-100 m-4 rounded-lg";
               //filter restraunt based on search text .
               // update restraunt acc. to search text .
               const filteredtext = restaurants.filter((res) =>
@@ -80,7 +81,6 @@ const Body = () => {
           </button>
         </div>
       </div>
-      <div className="search">Search</div>
       <div className="flex flex-wrap">
         {filteredRes.map((restaurant) => {
           return (
