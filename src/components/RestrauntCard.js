@@ -32,3 +32,16 @@ const RestrauntCard = ({ resData }) => {
 };
 
 export default RestrauntCard;
+//Higher Order Components
+export const promotedCard = (RestrauntCard) => {
+  return (props) => {
+    return (
+      <>
+        <p className="absolute m-2 p-2 bg-black text-white rounded-md">
+          Recommended
+        </p>
+        <RestrauntCard {...props} />
+      </>
+    );
+  };
+};

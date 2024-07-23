@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import RestrauntCard from "./RestrauntCard";
+import RestrauntCard, { promotedCard } from "./RestrauntCard";
 import { useEffect, useState } from "react";
 import useOnlineStaus from "../utils/useOnlineStatus";
 
@@ -7,6 +7,7 @@ const Body = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [filteredRes, setFilteredRes] = useState([]);
   const [searchText, setSearchtext] = useState("");
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -18,6 +19,9 @@ const Body = () => {
       const json = await data?.json();
 
       setRestaurants(
+        json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
+      );
+      console.log(
         json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
       );
       setFilteredRes(
@@ -43,6 +47,8 @@ const Body = () => {
         Looks like you're offline!! Please check your internet connection;
       </h1>
     );
+
+  const PromotedCard = promotedCard(RestrauntCard);
 
   return restaurants.length === 0 ? (
     <p>Loading.....</p>
@@ -88,7 +94,11 @@ const Body = () => {
               key={restaurant.info.id}
               to={"/restaurant/" + restaurant.info.id}
             >
-              <RestrauntCard resData={restaurant} />
+              {restaurant?.info?.avgRating > 4.5 ? (
+                <PromotedCard resData={restaurant} />
+              ) : (
+                <RestrauntCard resData={restaurant} />
+              )}
             </Link>
           );
         })}
