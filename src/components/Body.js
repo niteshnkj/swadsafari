@@ -13,17 +13,15 @@ const Body = () => {
   const fetchData = async () => {
     try {
       const data = await fetch(
-        "https://www.swiggy.com/mapi/homepage/getCards?lat=28.723343&lng=77.2213086"
+        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.723343&lng=77.2213086&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
       );
       const json = await data?.json();
 
       setRestaurants(
-        json?.data?.success?.cards[1]?.gridWidget?.gridElements?.infoWithStyle
-          ?.restaurants
+        json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
       );
       setFilteredRes(
-        json?.data?.success?.cards[1]?.gridWidget?.gridElements?.infoWithStyle
-          ?.restaurants
+        json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
       );
     } catch (error) {
       console.log("error while fetching api");
@@ -50,32 +48,40 @@ const Body = () => {
     <p>Loading.....</p>
   ) : (
     <div className="body">
-      <div>
-        <input
-          type="text"
-          placeholder="Enter a restraunt name here"
-          onChange={(e) => setSearchtext(e.target.value)}
-        />
-      </div>
-      <button
-        onClick={() => {
-          //filter restraunt based on search text .
-          // update restraunt acc. to search text .
-          const filteredtext = restaurants.filter((res) =>
-            res.info.name.toLowerCase().includes(searchText.toLowerCase())
-          );
-          setFilteredRes(filteredtext);
-        }}
-      >
-        Search
-      </button>
-      <div>
-        <button onClick={handleClick} className="filter-btn">
-          Top Rated Restaurants
-        </button>
+      <div className="filter flex">
+        <div className="search m-4 p-4">
+          <input
+            type="text"
+            placeholder="Enter a restraunt name here"
+            onChange={(e) => setSearchtext(e.target.value)}
+            value={searchText}
+          />
+
+          <button
+            onClick={() => {
+              className = "px-4 py-2 bg-green-100 m-4 rounded-lg";
+              //filter restraunt based on search text .
+              // update restraunt acc. to search text .
+              const filteredtext = restaurants.filter((res) =>
+                res.info.name.toLowerCase().includes(searchText.toLowerCase())
+              );
+              setFilteredRes(filteredtext);
+            }}
+          >
+            Search
+          </button>
+        </div>
+        <div className="search m-4 p-4 flex items-center">
+          <button
+            onClick={handleClick}
+            className="px-4 py-2 bg-gray-100 rounded-lg"
+          >
+            Top Rated Restaurants
+          </button>
+        </div>
       </div>
       <div className="search">Search</div>
-      <div className="res-container">
+      <div className="flex flex-wrap">
         {filteredRes.map((restaurant) => {
           return (
             <Link

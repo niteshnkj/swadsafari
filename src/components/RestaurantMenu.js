@@ -8,12 +8,10 @@ const RestaurantMenu = () => {
   if (resData === null) return <h1>Loading......</h1>;
 
   const { name, avgRating, totalRatingsString, costForTwoMessage, cuisines } =
-    resData?.data?.cards[2]?.card?.card?.info;
+    resData.data.cards[2].card.card.info;
   const { itemCards } =
-    resData?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card
-      ?.card;
-
-  console.log(itemCards);
+    resData.data.cards[4].groupedCard.cardGroupMap.REGULAR.cards[2].card.card;
+  // console.log(itemCards);
   return (
     <div>
       <h1>{name}</h1>
