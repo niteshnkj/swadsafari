@@ -3,13 +3,13 @@ import MenuItems from "./MenuItems";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import { useState } from "react";
 
-const MenuCategoryType = ({ menuTabs }) => {
+const MenuCategoryType = ({ menuTabs, showItems, setShowIndex }) => {
   //   console.log(menuTabs);
-  const [showItems, setShowItems] = useState(false);
+  //   const [showItems, setShowItems] = useState(false);
   const { itemCards } = menuTabs?.card?.card;
   //   console.log("ye wala bhi", itemCards);
   const handleClick = () => {
-    setShowItems(!showItems);
+    setShowIndex();
   };
   return (
     <div>

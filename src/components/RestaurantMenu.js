@@ -1,10 +1,12 @@
 import { useParams } from "react-router-dom";
 import useResData from "../utils/useResData";
 import MenuCategoryType from "./MenuCategoryType";
+import { useState } from "react";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
   const resData = useResData(resId);
+  const [showIndex, setShowIndex] = useState(null);
 
   if (resData === null) return <h1>Loading......</h1>;
 
@@ -41,7 +43,15 @@ const RestaurantMenu = () => {
         <h3>Menu Items</h3>
         <h3>
           {menuTabs.map((menuCategory, index) => {
-            return <MenuCategoryType key={index} menuTabs={menuCategory} />;
+            return (
+              // controlled component
+              <MenuCategoryType
+                key={index}
+                menuTabs={menuCategory}
+                showItems={index === showIndex ? true : false}
+                setShowIndex={() => setShowIndex(index)}
+              />
+            );
           })}
         </h3>
       </div>

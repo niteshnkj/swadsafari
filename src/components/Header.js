@@ -2,15 +2,19 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStaus from "../utils/useOnlineStatus";
 
-
 const Header = () => {
   const [user, setUser] = useState("LogIn");
   const onlineStatus = useOnlineStaus();
 
   return (
     <div className="flex justify-between bg-pink-100 shadow-lg sm:bg-yellow-50 lg:bg-green-50">
-      <div className="logo-container">
-        <img className="w-56" />
+      <div className="flex justify-center items-center">
+        <img
+          className="w-56"
+          src={
+            "https://res.cloudinary.com/do9s5cxxl/image/upload/v1721808110/SwadSafari/logo-no-background_scvtm9.svg"
+          }
+        />
       </div>
       <div className="flex items-center">
         <ul className="flex p-4 m-4">
