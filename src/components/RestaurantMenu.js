@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import useResData from "../utils/useResData";
 import MenuCategoryType from "./MenuCategoryType";
 import { useState } from "react";
+import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
@@ -30,7 +31,9 @@ const RestaurantMenu = () => {
       resData?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards
     ) ||
     [];
-
+  const handleIndex = (index) => {
+    setShowIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
   return (
     <div className="text-center">
       <div>
@@ -48,8 +51,8 @@ const RestaurantMenu = () => {
               <MenuCategoryType
                 key={index}
                 menuTabs={menuCategory}
-                showItems={index === showIndex ? true : false}
-                setShowIndex={() => setShowIndex(index)}
+                showItems={index === showIndex}
+                handleIndex={() => handleIndex(index)}
               />
             );
           })}
