@@ -1,5 +1,6 @@
 import React from "react";
 
+
 class UserClass extends React.Component {
   constructor(props) {
     super(props);
@@ -10,7 +11,7 @@ class UserClass extends React.Component {
         location: "Default",
       },
     };
-    console.log(this.props.name + "Child Constructor");
+    // console.log(this.props.name + "Child Constructor");
   }
 
   async componentDidMount() {
@@ -24,15 +25,15 @@ class UserClass extends React.Component {
       userInfo: json,
     });
 
-    console.log(json);
+    // console.log(json);
   }
 
   componentDidUpdate() {
-    console.log("Component Did Update");
+    // console.log("Component Did Update");
   }
 
   componentWillUnmount() {
-    console.log("Component Will Unmount");
+    // console.log("Component Will Unmount");
   }
 
   render() {
@@ -42,7 +43,9 @@ class UserClass extends React.Component {
     return (
       <div className="user-card">
         <img src={avatar_url} />
+
         <h2>Name: {name}</h2>
+      
         <h3>Location: {location}</h3>
         <h4>Contact: @nitesjnkj</h4>
       </div>
@@ -51,9 +54,6 @@ class UserClass extends React.Component {
 }
 
 export default UserClass;
-
-
-
 
 /****
  *
