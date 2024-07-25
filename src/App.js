@@ -9,6 +9,9 @@ import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
 import { lazy, Suspense } from "react";
 import UserContext from "./utils/UserContext";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
+import Cart from "./components/cart";
 
 // Chunking
 // Code Splitting
@@ -32,10 +35,12 @@ const AppLayout = () => {
 
   return (
     <div className="app">
-      <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
-        <Header />
-        <Outlet />
-      </UserContext.Provider>
+      <Provider store={appStore}>
+        <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+          <Header />
+          <Outlet />
+        </UserContext.Provider>
+      </Provider>
     </div>
   );
 };
@@ -71,6 +76,10 @@ const appRouter = createBrowserRouter([
             <Grocery fallback={<h1>Loading....</h1>} />
           </Suspense>
         ),
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
       },
     ],
     errorElement: <Error />,

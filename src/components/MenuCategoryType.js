@@ -1,7 +1,7 @@
 import React from "react";
 import MenuItems from "./MenuItems";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
-import { useState } from "react";
+
 
 const MenuCategoryType = ({ menuTabs, showItems,handleIndex }) => {
   //   console.log(menuTabs);
@@ -11,6 +11,7 @@ const MenuCategoryType = ({ menuTabs, showItems,handleIndex }) => {
 //   const handleClick = () => {
 //     setShowIndex();
 //   };
+
   return (
     <div>
       <div className="w-6/12 mx-auto my-4 bg-gray-50 shadow-lg p-4">
@@ -27,7 +28,7 @@ const MenuCategoryType = ({ menuTabs, showItems,handleIndex }) => {
 
         {showItems &&
           itemCards.map((items) => {
-            return <MenuItems foodMenuCard={items} key={items.card.info.id} />;
+            return <MenuItems items={items} key={items.card.info.id} />;
           })}
 
         {/* {menuTabs.card.card.itemCards.length()} */}

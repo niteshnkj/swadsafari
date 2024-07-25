@@ -1,7 +1,15 @@
-const MenuItems = ({ foodMenuCard }) => {
-  //   console.log(foodMenuCard);
+import { useDispatch } from "react-redux";
+import { addItem } from "../utils/cartSlice";
+const MenuItems = ({ items }) => {
+  const dispatch = useDispatch();
+  const handleAddItem = (items) => {
+    // Dispatch an action
+    dispatch(addItem(items));
+  };
+
   const { name, description, defaultPrice, imageId, price } =
-    foodMenuCard.card.info;
+    items?.card?.info;
+
   return (
     <div>
       <div className="p-2 m-2 border-gray-200 border-b-2 text-left flex justify-between">
@@ -16,8 +24,8 @@ const MenuItems = ({ foodMenuCard }) => {
           <div className="absolute">
             <button
               className="p-2 mx-16 rounded-lg bg-black text-white shadow-lg"
-            //   onClick={() => handleAddItem(item)}
-            //   onClick={handleIndex}
+              onClick={() => handleAddItem(items)}
+              // onClick={handleIndex}
             >
               Add +
             </button>

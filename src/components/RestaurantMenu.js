@@ -34,6 +34,7 @@ const RestaurantMenu = () => {
   const handleIndex = (index) => {
     setShowIndex((prevIndex) => (prevIndex === index ? null : index));
   };
+  if (!menuTabs) return <h1>Loading</h1>;
   return (
     <div className="text-center">
       <div>
