@@ -6,11 +6,12 @@ import useOnlineStaus from "../utils/useOnlineStatus";
 const Body = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [filteredRes, setFilteredRes] = useState([]);
+  // debauncing caching and autocomplete
   const [searchText, setSearchtext] = useState("");
-
+  console.log(restaurants);
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [searchText]);
   const fetchData = async () => {
     try {
       const data = await fetch(
@@ -36,7 +37,7 @@ const Body = () => {
     const filteredRestaurants = restaurants.filter((restaurant) => {
       return restaurant?.info?.avgRating > 4;
     });
-   setFilteredRes(filteredRestaurants);
+    setFilteredRes(filteredRestaurants);
   };
 
   const onlineStatus = useOnlineStaus();

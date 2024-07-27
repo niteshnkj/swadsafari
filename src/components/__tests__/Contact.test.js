@@ -1,8 +1,12 @@
+import { render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import ContactUs from "../ContactUs";
+
 describe("Contact Us Page Test Case", () => {
   //eiter we write test or we write it both test and it are one and the same thing .
   it("Should load contact us component", () => {
     //render
-    render(<Contact />);
+    render(<ContactUs />);
 
     //querting
     const heading = screen.getByRole("heading");
@@ -13,7 +17,7 @@ describe("Contact Us Page Test Case", () => {
 
   it("Should load button inside Contact component", () => {
     //render
-    render(<Contact />);
+    render(<ContactUs />);
 
     //querying
     const button = screen.getByRole("button");
@@ -24,7 +28,7 @@ describe("Contact Us Page Test Case", () => {
 
   it("Should load input name inside Contact component", () => {
     // render
-    render(<Contact />);
+    render(<ContactUs />);
 
     //querying
     const inputName = screen.getByPlaceholderText("name");
@@ -35,7 +39,7 @@ describe("Contact Us Page Test Case", () => {
 
   it("Should load 2 input boxes on the Contact component", () => {
     // render
-    render(<Contact />);
+    render(<ContactUs />);
 
     // Querying
     const inputBoxes = screen.getAllByRole("textbox");

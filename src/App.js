@@ -12,6 +12,7 @@ import UserContext from "./utils/UserContext";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
 import Cart from "./components/cart";
+import Footer from "./components/Footer";
 
 // Chunking
 // Code Splitting
@@ -39,6 +40,7 @@ const AppLayout = () => {
         <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
           <Header />
           <Outlet />
+          <Footer />
         </UserContext.Provider>
       </Provider>
     </div>
