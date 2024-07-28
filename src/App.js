@@ -13,6 +13,7 @@ import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
 import Cart from "./components/Cart";
 import Footer from "./components/Footer";
+import Shimmer from "./components/Shimmer";
 
 // Chunking
 // Code Splitting
@@ -59,7 +60,7 @@ const appRouter = createBrowserRouter([
         path: "/about",
         element: (
           <Suspense>
-            <About fallback={<h1>Loading....</h1>} />
+            <About fallback={<Shimmer />} />
           </Suspense>
         ),
       },

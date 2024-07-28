@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import RestrauntCard, { promotedCard } from "./RestrauntCard";
 import { useEffect, useState } from "react";
 import useOnlineStaus from "../utils/useOnlineStatus";
+import Shimmer from "./Shimmer";
 
 const Body = () => {
   const [restaurants, setRestaurants] = useState([]);
@@ -52,7 +53,7 @@ const Body = () => {
   const PromotedCard = promotedCard(RestrauntCard);
 
   return restaurants.length === 0 ? (
-    <p>Loading.....</p>
+    <Shimmer/>
   ) : (
     <div className="body">
       <div className=" flex">
