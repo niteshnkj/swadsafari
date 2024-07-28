@@ -13,17 +13,21 @@ const RestrauntCard = ({ resData }) => {
   } = resData.info;
 
   return (
-    <div className="m-4 p-4 w-[250px] rounded-lg bg-gray-100 hover:bg-gray-200">
+    <div  className="m-4 p-4 w-[250px] rounded-lg bg-gray-100 hover:bg-gray-200">
       <img
         src={
           "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" +
           cloudinaryImageId
         }
         alt="res-logo"
-        className="rounded-lg"
+        className="rounded-lg bg-cover object-cover h-48 w-full"
       />
-      <h3 className="font-bold py-4 text-lg">{name}</h3>
-      <h4>{cuisines.join(", ")}</h4>
+      <h3 className="font-bold py-4 text-lg overflow-hidden text-ellipsis whitespace-nowrap">
+        {name}
+      </h3>
+      <h4 className="overflow-hidden text-ellipsis whitespace-nowrap">
+        {cuisines.slice(0, 3).join(", ")}
+      </h4>
       <h4>{avgRatingString}</h4>
       <h4>{costForTwo}</h4>
       <h4>{deliveryTime} minutes</h4>

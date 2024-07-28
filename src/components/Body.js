@@ -7,36 +7,58 @@ import Shimmer from "./Shimmer";
 const Body = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [filteredRes, setFilteredRes] = useState([]);
-  // debauncing caching and autocomplete
   const [searchText, setSearchtext] = useState("");
-  console.log(restaurants);
+  const [location, setLocation] = useState({
+    latitude: "26.3482938",
+    longitude: "86.0711661",
+  });
+
+  function handleLocationClick() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(success, error);
+    } else {
+      console.log("Geolocation not supported");
+    }
+  }
+
+  function success(position) {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    setLocation({ latitude, longitude });
+    console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+  }
+
+  function error() {
+    console.log("Unable to retrieve your location");
+  }
+
   useEffect(() => {
-    fetchData();
-  }, [searchText]);
+    if (location) {
+      fetchData();
+    }
+  }, [location, searchText]);
+
   const fetchData = async () => {
     try {
       const data = await fetch(
-        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.723343&lng=77.2213086&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+        `https://www.swiggy.com/dapi/restaurants/list/v5?lat=${location?.latitude}&lng=${location?.longitude}&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`
       );
-      const json = await data?.json();
+      const json = await data.json();
 
       setRestaurants(
         json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
       );
-      // console.log(
-      //   json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
-      // );
       setFilteredRes(
         json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
       );
     } catch (error) {
-      console.log("error while fetching api");
+      console.log("Error while fetching API", error);
     }
   };
 
   const handleClick = () => {
     const filteredRestaurants = restaurants.filter((restaurant) => {
-      return restaurant?.info?.avgRating > 4;
+      return restaurant?.info?.avgRating > 4.2;
     });
     setFilteredRes(filteredRestaurants);
   };
@@ -53,15 +75,18 @@ const Body = () => {
   const PromotedCard = promotedCard(RestrauntCard);
 
   return restaurants.length === 0 ? (
-    <Shimmer/>
+    <div>
+      <Shimmer />
+      <button onClick={handleLocationClick}>loaction</button>
+    </div>
   ) : (
     <div className="body">
-      <div className=" flex">
-        <div className=" m-4 p-4">
+      <div className="flex">
+        <div className="m-4 p-4">
           <input
             type="text"
             className="border border-solid border-black p-4"
-            placeholder="Enter a restraunt name here"
+            placeholder="Enter a restaurant name here"
             onChange={(e) => setSearchtext(e.target.value)}
             value={searchText}
           />
@@ -69,8 +94,6 @@ const Body = () => {
           <button
             className="px-4 py-2 bg-green-100 m-4 rounded-lg"
             onClick={() => {
-              //filter restraunt based on search text .
-              // update restraunt acc. to search text .
               const filteredtext = restaurants.filter((res) =>
                 res.info.name.toLowerCase().includes(searchText.toLowerCase())
               );
@@ -80,12 +103,20 @@ const Body = () => {
             Search
           </button>
         </div>
-        <div className="search m-4 p-4 flex items-center">
+        <div className=" m-4 p-4 flex items-center">
           <button
             onClick={handleClick}
             className="px-4 py-2 bg-gray-100 rounded-lg"
           >
             Top Rated Restaurants
+          </button>
+        </div>
+        <div className="m-4 p-4 flex items-center">
+          <button
+            onClick={handleLocationClick}
+            className="px-4 py-2 bg-gray-100 rounded-lg"
+          >
+            set your location
           </button>
         </div>
       </div>
