@@ -28,7 +28,7 @@ const Cart = () => {
           <h1> Cart is empty. Add Items to the cart!</h1>
         ) : (
           cartItems.map((items, index) => {
-            return <MenuItems items={items} key={index} />;
+            return <MenuItems item={items} key={index} isCart={true} />;
           })
         )}
         {/* <MenuItems items={cartItems} /> */}

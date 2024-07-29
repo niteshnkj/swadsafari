@@ -28,7 +28,7 @@ const MenuCategoryType = ({ menuTabs, showItems,handleIndex }) => {
 
         {showItems &&
           itemCards.map((items) => {
-            return <MenuItems items={items} key={items.card.info.id} />;
+            return <MenuItems item={items} key={items.card.info.id} />;
           })}
 
         {/* {menuTabs.card.card.itemCards.length()} */}

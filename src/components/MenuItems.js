@@ -1,14 +1,17 @@
 import { useDispatch } from "react-redux";
-import { addItem } from "../utils/cartSlice";
-const MenuItems = ({ items }) => {
+import { addItem, removeItem } from "../utils/cartSlice";
+const MenuItems = ({ item, isCart }) => {
   const dispatch = useDispatch();
-  const handleAddItem = (items) => {
+  const handleAddItem = (item) => {
     // Dispatch an action
-    dispatch(addItem(items));
+    dispatch(addItem(item));
   };
 
-  const { name, description, defaultPrice, imageId, price } =
-    items?.card?.info;
+  const handleRemoveItem = (item) => {
+    dispatch(removeItem({ id: item.card.info.id }));
+  };
+
+  const { name, description, defaultPrice, imageId, price } = item?.card?.info;
 
   return (
     <div>
@@ -22,13 +25,23 @@ const MenuItems = ({ items }) => {
         </div>
         <div className="w-3/12 p-4">
           <div className="absolute">
-            <button
-              className="p-2 mx-16 rounded-lg bg-black text-white shadow-lg"
-              onClick={() => handleAddItem(items)}
-              // onClick={handleIndex}
-            >
-              Add +
-            </button>
+            {!isCart ? (
+              <button
+                className="p-2 mx-16 rounded-lg bg-black text-white shadow-lg"
+                onClick={() => handleAddItem(item)}
+                // onClick={handleIndex}
+              >
+                Add +
+              </button>
+            ) : (
+              <button
+                className="p-2 mx-16 rounded-lg bg-black text-white shadow-lg"
+                onClick={() => handleRemoveItem(item)}
+                // onClick={handleIndex}
+              >
+                remove
+              </button>
+            )}
           </div>
           <img
             src={
