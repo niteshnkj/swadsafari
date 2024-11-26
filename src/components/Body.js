@@ -3,6 +3,7 @@ import RestrauntCard, { promotedCard } from "./RestrauntCard";
 import { useEffect, useState } from "react";
 import useOnlineStaus from "../utils/useOnlineStatus";
 import Shimmer from "./Shimmer";
+import LandingPage from "./LandingPage";
 
 const Body = () => {
   const [restaurants, setRestaurants] = useState([]);
@@ -76,11 +77,13 @@ const Body = () => {
 
   return restaurants.length === 0 ? (
     <div>
+      <LandingPage />
       <Shimmer />
-      <button onClick={handleLocationClick}>loaction</button>
+      <button onClick={handleLocationClick}>location</button>
     </div>
   ) : (
     <div className="body">
+      <LandingPage />
       <div className="flex">
         <div className="m-4 p-4">
           <input

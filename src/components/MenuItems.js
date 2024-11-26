@@ -7,8 +7,8 @@ const MenuItems = ({ item, isCart }) => {
     dispatch(addItem(item));
   };
 
-  const handleRemoveItem = (item) => {
-    dispatch(removeItem({ id: item.card.info.id }));
+  const handleRemoveItem = (id) => {
+    dispatch(removeItem(id));
   };
 
   const { name, description, defaultPrice, imageId, price } = item?.card?.info;
@@ -36,7 +36,7 @@ const MenuItems = ({ item, isCart }) => {
             ) : (
               <button
                 className="p-2 mx-16 rounded-lg bg-black text-white shadow-lg"
-                onClick={() => handleRemoveItem(item)}
+                onClick={() => handleRemoveItem(item.id)}
                 // onClick={handleIndex}
               >
                 remove
