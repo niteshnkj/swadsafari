@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       fontFamily: {
         montserrat: ["Montserrat", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
       },
       LandingbackgroundImage: {
         "landing-delivery-boy":
@@ -40,5 +41,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 };

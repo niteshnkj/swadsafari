@@ -7,11 +7,14 @@ import { TbTruckDelivery } from "react-icons/tb";
 import { BsFillChatSquareHeartFill } from "react-icons/bs";
 import { CiStar } from "react-icons/ci";
 import { useState, useEffect } from "react";
+import { DiZend } from "react-icons/di";
+import { useDispatch } from "react-redux";
+import { addLocation } from "../utils/locationSlice";
 
 const LandingPage = () => {
   const [searchlocation, setSearchlocation] = useState("");
   const [searchedval, setSearchedval] = useState([]);
-
+  const dispatch = useDispatch();
   const handleChange = (e) => {
     setSearchlocation(e.target.value);
   };
@@ -20,9 +23,22 @@ const LandingPage = () => {
     if (searchlocation) {
       fetchLocationData(searchlocation);
     } else {
-      setSearchedval([]); // Clear suggestions if input is empty
+      setSearchedval([]);
     }
   }, [searchlocation]);
+
+  const handleLocationClick = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          dispatch(addLocation(position.coords));
+        },
+        () => console.log("Unable to retrieve your location")
+      );
+    } else {
+      console.log("Geolocation not supported");
+    }
+  };
 
   const fetchLocationData = async (val) => {
     try {
@@ -31,15 +47,14 @@ const LandingPage = () => {
       );
       const data = await res.json();
       console.log(data);
-      setSearchedval(data?.data || []); // Assuming 'suggestions' is the array in the API response
-      console.log(searchedval);
+      setSearchedval(data?.data || []); 
     } catch (error) {
       console.error("Error fetching location data:", error);
     }
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row items-center justify-center font-montserrat bg-gradient-red-orange">
+    <div className="min-h-screen w-full flex flex-col md:flex-row items-center justify-center font-montserrat bg-gradient-red-orange">
       <div className="flex flex-col-reverse md:flex-row h-full w-full md:w-4/5 text-white items-center justify-between p-4 md:mt-4 lg:mt-24">
         {/* Text Section */}
         <div className="flex flex-col gap-4 md:gap-6 items-center md:items-start">
@@ -70,6 +85,7 @@ const LandingPage = () => {
               <button
                 className="absolute right-3 md:right-4 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-[#f76c6c] transition-all"
                 aria-label="Detect location"
+                onClick={handleLocationClick}
               >
                 <FaLocationCrosshairs />
               </button>
@@ -79,7 +95,9 @@ const LandingPage = () => {
                     {searchedval.map((val, index) => (
                       <li key={index} className="p-2 border-b last:border-none">
                         <p>{val.structured_formatting.main_text}</p>
-                        <p className='text-black/60'>{val.structured_formatting.secondary_text}</p>
+                        <p className="text-black/60">
+                          {val.structured_formatting.secondary_text}
+                        </p>
                       </li>
                     ))}
                   </ul>

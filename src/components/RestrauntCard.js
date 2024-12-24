@@ -13,24 +13,32 @@ const RestrauntCard = ({ resData }) => {
   } = resData.info;
 
   return (
-    <div  className="m-4 p-4 w-[250px] rounded-lg bg-gray-100 hover:bg-gray-200">
-      <img
-        src={
-          "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" +
-          cloudinaryImageId
-        }
-        alt="res-logo"
-        className="rounded-lg bg-cover object-cover h-48 w-full"
-      />
-      <h3 className="font-bold py-4 text-lg overflow-hidden text-ellipsis whitespace-nowrap">
-        {name}
-      </h3>
-      <h4 className="overflow-hidden text-ellipsis whitespace-nowrap">
-        {cuisines.slice(0, 3).join(", ")}
-      </h4>
-      <h4>{avgRatingString}</h4>
-      <h4>{costForTwo}</h4>
-      <h4>{deliveryTime} minutes</h4>
+    <div className="card bg-gray-100 w-52 shadow-xl text-left h-72 font-inter">
+      <figure>
+        <img
+          src={
+            "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" +
+            cloudinaryImageId
+          }
+          alt={`${name} logo`}
+          className="rounded-xl h-32 w-full object-cover"
+        />
+      </figure>
+      <div className="card-body flex flex-col justify-between items-start text-left p-4">
+        <h2 className="card-title text-lg font-semibold truncate w-full text-gray-900">
+          {name}
+        </h2>
+        <p className="text-sm text-gray-700 truncate w-full">
+          {cuisines.slice(0, 3).join(", ")}
+        </p>
+        <div className="text-sm text-gray-600">
+          <h4 className="font-semibold text-green-700">
+            Rating: {avgRatingString}
+          </h4>
+          <h4 className="text-gray-800">Cost: {costForTwo}</h4>
+          <h4 className="text-gray-800">Delivery: {deliveryTime} minutes</h4>
+        </div>
+      </div>
     </div>
   );
 };

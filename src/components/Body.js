@@ -4,35 +4,16 @@ import { useEffect, useState } from "react";
 import useOnlineStaus from "../utils/useOnlineStatus";
 import Shimmer from "./Shimmer";
 import LandingPage from "./LandingPage";
+import { useDispatch, useSelector } from "react-redux";
+import { addLocation } from "../utils/locationSlice";
+import OfflinePage from "./OfflinePage";
 
 const Body = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [filteredRes, setFilteredRes] = useState([]);
   const [searchText, setSearchtext] = useState("");
-  const [location, setLocation] = useState({
-    latitude: "26.3482938",
-    longitude: "86.0711661",
-  });
 
-  function handleLocationClick() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(success, error);
-    } else {
-      console.log("Geolocation not supported");
-    }
-  }
-
-  function success(position) {
-    const latitude = position.coords.latitude;
-    const longitude = position.coords.longitude;
-    setLocation({ latitude, longitude });
-    console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
-  }
-
-  function error() {
-    console.log("Unable to retrieve your location");
-  }
-
+  const location = useSelector((store) => store.location);
   useEffect(() => {
     if (location) {
       fetchData();
@@ -66,12 +47,7 @@ const Body = () => {
 
   const onlineStatus = useOnlineStaus();
 
-  if (onlineStatus === false)
-    return (
-      <h1>
-        Looks like you're offline!! Please check your internet connection;
-      </h1>
-    );
+  if (onlineStatus === false) return <OfflinePage />;
 
   const PromotedCard = promotedCard(RestrauntCard);
 
@@ -79,56 +55,47 @@ const Body = () => {
     <div>
       <LandingPage />
       <Shimmer />
-      <button onClick={handleLocationClick}>location</button>
+      {/* <button onClick={handleLocationClick}>location</button> */}
     </div>
   ) : (
     <div className="body">
       <LandingPage />
-      <div className="flex">
+      <div className="flex flex-wrap justify-center gap-4 bg-gray-50 py-4 shadow-md">
         <div className="m-4 p-4">
           <input
             type="text"
-            className="border border-solid border-black p-4"
+            className="input input-bordered w-full max-w-xs"
             placeholder="Enter a restaurant name here"
             onChange={(e) => setSearchtext(e.target.value)}
             value={searchText}
           />
-
+        </div>
+        <div className="m-4 p-4 flex items-center">
           <button
-            className="px-4 py-2 bg-green-100 m-4 rounded-lg"
             onClick={() => {
               const filteredtext = restaurants.filter((res) =>
                 res.info.name.toLowerCase().includes(searchText.toLowerCase())
               );
               setFilteredRes(filteredtext);
             }}
+            className="btn btn-primary"
           >
             Search
           </button>
         </div>
-        <div className=" m-4 p-4 flex items-center">
-          <button
-            onClick={handleClick}
-            className="px-4 py-2 bg-gray-100 rounded-lg"
-          >
+        <div className="m-4 p-4 flex items-center">
+          <button onClick={handleClick} className="btn btn-secondary">
             Top Rated Restaurants
           </button>
         </div>
-        <div className="m-4 p-4 flex items-center">
-          <button
-            onClick={handleLocationClick}
-            className="px-4 py-2 bg-gray-100 rounded-lg"
-          >
-            set your location
-          </button>
-        </div>
       </div>
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap gap-6 justify-center bg-gray-100 py-6">
         {filteredRes.map((restaurant) => {
           return (
             <Link
               key={restaurant.info.id}
               to={"/restaurant/" + restaurant.info.id}
+              className="hover:scale-105 transform transition-transform duration-200"
             >
               {restaurant?.info?.avgRating > 4.5 ? (
                 <PromotedCard resData={restaurant} />

@@ -9,7 +9,7 @@ import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
 
 import UserContext from "./utils/UserContext";
-import LocationContext from "./utils/LocationContext";
+
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
 import Cart from "./components/Cart";
@@ -39,13 +39,13 @@ const AppLayout = () => {
   return (
     <div className="app">
       <Provider store={appStore}>
-        <LocationContext.Provider>
+        
           <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
             <Header />
             <Outlet />
             <Footer />
           </UserContext.Provider>
-        </LocationContext.Provider>
+       
       </Provider>
     </div>
   );

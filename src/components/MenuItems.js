@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { addItem, removeItem } from "../utils/cartSlice";
-const MenuItems = ({ item, isCart }) => {
+const MenuItems = ({ item, isCart,onRemove }) => {
   const dispatch = useDispatch();
   const handleAddItem = (item) => {
     // Dispatch an action
@@ -36,7 +36,7 @@ const MenuItems = ({ item, isCart }) => {
             ) : (
               <button
                 className="p-2 mx-16 rounded-lg bg-black text-white shadow-lg"
-                onClick={() => handleRemoveItem(item.id)}
+                onClick={() => onRemove(item.id)}
                 // onClick={handleIndex}
               >
                 remove
