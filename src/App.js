@@ -1,7 +1,7 @@
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
-import Body from "./components/Body";
+
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 
 import ContactUs from "./components/ContactUs";
@@ -15,6 +15,9 @@ import appStore from "./utils/appStore";
 import Cart from "./components/Cart";
 import Footer from "./components/Footer";
 import Shimmer from "./components/Shimmer";
+import LandingPageSkeleton from "./components/LandingPageSkeleton";
+import LandingPage from "./components/LandingPage";
+import ResFeed from "./components/ResFeed";
 
 // Chunking
 // Code Splitting
@@ -24,6 +27,7 @@ import Shimmer from "./components/Shimmer";
 // dynamic imoprt
 const Grocery = lazy(() => import("./components/Grocery"));
 const About = lazy(() => import("./components/About"));
+// const Body = lazy(() => import("./components/Body"));
 const AppLayout = () => {
   const [userName, setUserName] = useState();
 
@@ -39,13 +43,11 @@ const AppLayout = () => {
   return (
     <div className="app">
       <Provider store={appStore}>
-        
-          <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
-            <Header />
-            <Outlet />
-            <Footer />
-          </UserContext.Provider>
-       
+        <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+          <Header />
+          <Outlet />
+          <Footer />
+        </UserContext.Provider>
       </Provider>
     </div>
   );
@@ -57,7 +59,19 @@ const appRouter = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Body />,
+        element: (
+          <Suspense>
+            <LandingPage fallback={<LandingPageSkeleton />} />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/resfeed",
+        element: (
+          <Suspense>
+            <ResFeed/>
+          </Suspense>
+        ),
       },
       {
         path: "/about",

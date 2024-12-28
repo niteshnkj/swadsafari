@@ -62,18 +62,7 @@ const Footer = () => {
       <footer className="footer bg-gray-300 text-gray-700 border-t border-gray-200 px-10 py-4">
         {/* Logo and Info Section */}
         <aside className="grid-flow-col items-center">
-          <svg
-            width="32"
-            height="32"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-            fillRule="evenodd"
-            clipRule="evenodd"
-            className="fill-gray-500" // Updated color for better visibility
-          >
-            <path d="M22.672 15.226l-2.432.811 ..."></path>{" "}
-            {/* Ensure this path is correct */}
-          </svg>
+          
           <p className="text-sm text-gray-600">
             SwadSafari Ltd.
             <br />
@@ -85,39 +74,13 @@ const Footer = () => {
         <nav className="md:place-self-center md:justify-self-end">
           <div className="grid grid-flow-col gap-4">
             <a className="hover:text-gray-800">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="32"
-                height="32"
-                viewBox="0 0 24 24"
-                className="fill-gray-500" // Updated color
-              >
-                <path d="M24 4.557c-0.883 ..."></path>{" "}
-                {/* Ensure path is correct */}
-              </svg>
+              
             </a>
             <a className="hover:text-gray-800">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="32"
-                height="32"
-                viewBox="0 0 24 24"
-                className="fill-gray-500" // Updated color
-              >
-                <path d="M19.615 3.184c-3.604 ..."></path>{" "}
-                {/* Ensure path is correct */}
-              </svg>
+              
             </a>
             <a className="hover:text-gray-800">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="32"
-                height="32"
-                viewBox="0 0 24 24"
-                className="fill-gray-500" // Updated color
-              >
-                <path d="M9 8h-3v4 ..."></path> {/* Ensure path is correct */}
-              </svg>
+            
             </a>
           </div>
         </nav>

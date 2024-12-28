@@ -31,7 +31,8 @@ const LandingPage = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          dispatch(addLocation(position.coords));
+          const { latitude, longitude } = position.coords;
+          dispatch(addLocation({ latitude, longitude }));
         },
         () => console.log("Unable to retrieve your location")
       );
@@ -47,7 +48,7 @@ const LandingPage = () => {
       );
       const data = await res.json();
       console.log(data);
-      setSearchedval(data?.data || []); 
+      setSearchedval(data?.data || []);
     } catch (error) {
       console.error("Error fetching location data:", error);
     }
